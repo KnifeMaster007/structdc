@@ -1,5 +1,6 @@
 from typing import Union
 from ._metatypes import *
+from ._mixins import LE, BE, Unsigned, Signed, Bits8, Bits16, Bits32, Bits64
 
 __all__ = [
     'Uint8', 'Uint16', 'Uint16BE', 'Uint32', 'Uint32BE', 'Uint64', 'Uint64BE',

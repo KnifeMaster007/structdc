@@ -1,15 +1,8 @@
-from enum import Enum
 from abc import ABC, abstractmethod
 from typing import Type, Union
-from .metaprogramming.const import bytes_input_var, property_input_var
+from .metaprogramming import const
 
-__all__ = ['BE', 'LE', 'Signed', 'Unsigned', 'Bits8', 'Bits16', 'Bits32',
-           'Bits64', 'Integer']
-
-
-class _Endianess(Enum):
-    LITTLE = 'little'
-    BIG = 'big'
+__all__ = ['Integer', 'Float']
 
 
 class _ByteField(ABC):
@@ -30,22 +23,22 @@ class _ByteField(ABC):
 class Integer(_ByteField):
     typing = Union['Integer', int]
     signed: bool = None
-    endianess: _Endianess = None
+    endianess: const.Endianess = None
 
     @classmethod
     def decoder(cls):
-        return f'int.from_bytes(bytes={{{bytes_input_var}}}, ' \
+        return f'int.from_bytes(bytes={{{const.bytes_input_var}}}, ' \
                f'byteorder={cls.endianess.value}, signed={cls.signed})'
 
     @classmethod
     def encoder(cls):
-        return f'int.to_bytes(self={{{property_input_var}}}, length={cls.size}, ' \
+        return f'int.to_bytes(self={{{const.property_input_var}}}, length={cls.size}, ' \
                f'byteorder={cls.endianess.value}, signed={cls.signed})'
 
 
 class Float(_ByteField):
     typing = Union['Float', float]
-    endianess: _Endianess = None
+    endianess: const.Endianess = None
 
     @classmethod
     def decoder(cls) -> str:
@@ -56,36 +49,3 @@ class Float(_ByteField):
     def encoder(cls) -> str:
         # TODO: implement
         pass
-
-
-class BE:
-    endianess = _Endianess.BIG
-
-
-class LE:
-    endianess = _Endianess.LITTLE
-
-
-class Signed:
-    signed = True
-
-
-class Unsigned:
-    signed = False
-
-
-class Bits8:
-    size = 1
-
-
-class Bits16:
-    size = 2
-
-
-class Bits32:
-    size = 4
-
-
-class Bits64:
-    size = 8
-

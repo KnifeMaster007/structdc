@@ -1,5 +1,5 @@
 from typing import Union
-from ._metatypes import *
+from .metaprogramming.metatypes import Integer
 from ._mixins import LE, BE, Unsigned, Signed, Bits8, Bits16, Bits32, Bits64
 
 __all__ = [

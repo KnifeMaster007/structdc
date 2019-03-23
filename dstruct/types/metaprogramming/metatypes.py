@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from typing import Type, Union
-from .metaprogramming import const
+from dstruct.types.metaprogramming import const
 
 __all__ = ['Integer', 'Float']
 

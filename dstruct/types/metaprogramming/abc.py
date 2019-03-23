@@ -8,12 +8,12 @@ class ByteField(ABC):
 
     @classmethod
     @abstractmethod
-    def decoder(cls) -> str:
+    def __rawdecoder__(cls) -> str:
         pass
 
     @classmethod
     @abstractmethod
-    def encoder(cls) -> str:
+    def _rawencoder(cls) -> str:
         pass
 
 

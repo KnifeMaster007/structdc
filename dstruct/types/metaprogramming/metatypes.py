@@ -11,12 +11,12 @@ class Integer(ByteField):
     endianess: const.Endianess = None
 
     @classmethod
-    def decoder(cls):
+    def __rawdecoder__(cls):
         return f'int.from_bytes(bytes={{{const.bytes_input_var}}}, ' \
                f'byteorder=\'{cls.endianess.value}\', signed={cls.signed})'
 
     @classmethod
-    def encoder(cls):
+    def _rawencoder(cls):
         return f'int.to_bytes({{{const.property_input_var}}}, length={cls.size}, ' \
                f'byteorder=\'{cls.endianess.value}\', signed={cls.signed})'
 
@@ -26,11 +26,11 @@ class Float(ByteField):
     endianess: const.Endianess = None
 
     @classmethod
-    def decoder(cls) -> str:
+    def __rawdecoder__(cls) -> str:
         # TODO: implement
         pass
 
     @classmethod
-    def encoder(cls) -> str:
+    def _rawencoder(cls) -> str:
         # TODO: implement
         pass

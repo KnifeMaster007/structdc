@@ -1,6 +1,7 @@
 from enum import Enum
 from abc import ABC, abstractmethod
 from typing import Type, Union
+from .._meta.const import bytes_input_var, property_input_var
 
 __all__ = ['BE', 'LE', 'Signed', 'Unsigned', 'Bits8', 'Bits16', 'Bits32',
            'Bits64', 'Integer']
@@ -33,13 +34,13 @@ class Integer(_ByteField):
 
     @classmethod
     def decoder(cls):
-        # TODO: implement
-        pass
+        return f'int.from_bytes(bytes={{{bytes_input_var}}}, ' \
+               f'byteorder={cls.endianess.value}, signed={cls.signed})'
 
     @classmethod
     def encoder(cls):
-        # TODO: implement
-        pass
+        return f'int.to_bytes(self={{{property_input_var}}}, length={cls.size}, ' \
+               f'byteorder={cls.endianess.value}, signed={cls.signed})'
 
 
 class Float(_ByteField):

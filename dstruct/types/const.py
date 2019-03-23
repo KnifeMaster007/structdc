@@ -1,8 +1,8 @@
 from enum import Enum
 
 
-bytes_input_var = '_in_bytes'
-property_input_var = '_in_property'
+bytes_var = '__bytes'
+property_var = '__property'
 
 
 class Endianess(Enum):

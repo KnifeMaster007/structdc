@@ -13,7 +13,7 @@ class ByteField(ABC):
 
     @classmethod
     @abstractmethod
-    def _rawencoder(cls) -> str:
+    def __rawencoder__(cls) -> str:
         pass
 
 

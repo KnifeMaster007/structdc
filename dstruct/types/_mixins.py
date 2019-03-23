@@ -1,4 +1,4 @@
-from .metaprogramming.const import Endianess
+from .const import Endianess
 
 
 class BE:

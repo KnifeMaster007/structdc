@@ -1,7 +1,7 @@
 from enum import Enum
 from abc import ABC, abstractmethod
 from typing import Type, Union
-from .._meta.const import bytes_input_var, property_input_var
+from .metaprogramming.const import bytes_input_var, property_input_var
 
 __all__ = ['BE', 'LE', 'Signed', 'Unsigned', 'Bits8', 'Bits16', 'Bits32',
            'Bits64', 'Integer']

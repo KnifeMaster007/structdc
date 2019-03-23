@@ -1,26 +1,11 @@
-from abc import ABC, abstractmethod
-from typing import Type, Union
+from .abc import ByteField
+from typing import Union
 from dstruct.types.metaprogramming import const
 
 __all__ = ['Integer', 'Float']
 
 
-class _ByteField(ABC):
-    size: int = None
-    typing: Type = Union['_ByteField', bytes]
-
-    @classmethod
-    @abstractmethod
-    def decoder(cls) -> str:
-        pass
-
-    @classmethod
-    @abstractmethod
-    def encoder(cls) -> str:
-        pass
-
-
-class Integer(_ByteField):
+class Integer(ByteField):
     typing = Union['Integer', int]
     signed: bool = None
     endianess: const.Endianess = None
@@ -36,7 +21,7 @@ class Integer(_ByteField):
                f'byteorder={cls.endianess.value}, signed={cls.signed})'
 
 
-class Float(_ByteField):
+class Float(ByteField):
     typing = Union['Float', float]
     endianess: const.Endianess = None
 

@@ -1,6 +1,6 @@
 from typing import Union
 
-from dstruct.types._metaprogramming import annotation_parser
+from ._metaprogramming import annotation_parser
 from .abc import ByteField
 from .import const
 

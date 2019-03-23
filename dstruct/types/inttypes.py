@@ -7,59 +7,59 @@ __all__ = [
 ]
 
 
-class _Uint8(Integer, Bits8, Unsigned, LE):
+class _Uint8(Bits8, Unsigned, LE, Integer):
     typing = Union['_Uint8', int]    
 
 
-class _Uint16LE(Integer, Bits16, Unsigned, LE):
+class _Uint16LE(Bits16, Unsigned, LE, Integer):
     typing = Union['_Uint16LE', int]
 
 
-class _Uint16BE(Integer, Bits16, Unsigned, BE):
+class _Uint16BE(Bits16, Unsigned, BE, Integer):
     typing = Union['_Uint16BE', int]
 
 
-class _Uint32LE(Integer, Bits32, Unsigned, LE):
+class _Uint32LE(Bits32, Unsigned, LE, Integer):
     typing = Union['_Uint32LE', int]
 
 
-class _Uint32BE(Integer, Bits32, Unsigned, BE):
+class _Uint32BE(Bits32, Unsigned, BE, Integer):
     typing = Union['_Uint32BE', int]
 
 
-class _Uint64LE(Integer, Bits64, Unsigned, LE):
+class _Uint64LE(Bits64, Unsigned, LE, Integer):
     typing = Union['_Uint64LE', int]
 
 
-class _Uint64BE(Integer, Bits64, Unsigned, BE):
+class _Uint64BE(Bits64, Unsigned, BE, Integer):
     typing = Union['_Uint64BE', int]
 
 
-class _Int8(Integer, Bits8, Signed, LE):
+class _Int8(Bits8, Signed, LE, Integer):
     typing = Union['_Int8', int]
 
 
-class _Int16LE(Integer, Bits16, Signed, LE):
+class _Int16LE(Bits16, Signed, LE, Integer):
     typing = Union['_Int16LE', int]
 
 
-class _Int16BE(Integer, Bits16, Signed, BE):
+class _Int16BE(Bits16, Signed, BE, Integer):
     typing = Union['_Int16BE', int]
 
 
-class _Int32LE(Integer, Bits32, Signed, LE):
+class _Int32LE(Bits32, Signed, LE, Integer):
     typing = Union['_Int32LE', int]
 
 
-class _Int32BE(Integer, Bits32, Signed, BE):
+class _Int32BE(Bits32, Signed, BE, Integer):
     typing = Union['_Int32BE', int]
 
 
-class _Int64LE(Integer, Bits64, Signed, LE):
+class _Int64LE(Bits64, Signed, LE, Integer):
     typing = Union['_Int64LE', int]
 
 
-class _Int64BE(Integer, Bits64, Signed, BE):
+class _Int64BE(Bits64, Signed, BE, Integer):
     typing = Union['_Int64BE', int]
 
 

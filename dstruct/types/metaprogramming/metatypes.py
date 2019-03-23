@@ -13,12 +13,12 @@ class Integer(ByteField):
     @classmethod
     def decoder(cls):
         return f'int.from_bytes(bytes={{{const.bytes_input_var}}}, ' \
-               f'byteorder={cls.endianess.value}, signed={cls.signed})'
+               f'byteorder=\'{cls.endianess.value}\', signed={cls.signed})'
 
     @classmethod
     def encoder(cls):
-        return f'int.to_bytes(self={{{const.property_input_var}}}, length={cls.size}, ' \
-               f'byteorder={cls.endianess.value}, signed={cls.signed})'
+        return f'int.to_bytes({{{const.property_input_var}}}, length={cls.size}, ' \
+               f'byteorder=\'{cls.endianess.value}\', signed={cls.signed})'
 
 
 class Float(ByteField):

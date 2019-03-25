@@ -1,4 +1,4 @@
-from typing import Union
+from typing import Union, Tuple
 
 from ._metaprogramming import annotation_parser
 from .abc import ByteField
@@ -43,7 +43,7 @@ class BaseStruct(ByteField):
     __structalignment__ = True
 
     @classmethod
-    def __rawdecoder__(cls) -> str:
+    def __rawdecoder__(cls) -> Tuple[str]:
         arguments = []
         offset = 0
         for _, field_type in annotation_parser(cls.__annotations__):
@@ -53,10 +53,10 @@ class BaseStruct(ByteField):
                 read_instruction += f'[{align_offset}:]'
             arguments.append(field_type.__rawdecoder__().format(**{const.bytes_var: read_instruction}))
             offset += field_type.size
-        return f'cls({",".join(arguments)})'
+        return f'return cls({",".join(arguments)})',
 
     @classmethod
-    def __rawencoder__(cls) -> str:
+    def __rawencoder__(cls) -> Tuple[str]:
         arguments = []
         offset = 0
         for property_name, field_type in annotation_parser(cls.__annotations__):
@@ -66,4 +66,4 @@ class BaseStruct(ByteField):
             write_instruction = field_type.__rawencoder__().format(**{const.property_var: 'self.' + property_name})
             arguments.append(f"{const.bytes_var}.write({write_instruction})")
             offset += field_type.size
-        return "\n".join(arguments) + '\n'
+        return tuple(arguments)

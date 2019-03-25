@@ -1,0 +1,1 @@
+from .structmixin import StructMixin

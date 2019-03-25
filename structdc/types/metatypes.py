@@ -40,14 +40,13 @@ class Float(ByteField):
 
 class BaseStruct(ByteField):
     typing = Union['BaseStruct', object]
-    __structalignment__ = True
 
     @classmethod
-    def __rawdecoder__(cls) -> Tuple[str]:
+    def __rawdecoder__(cls, alignment=True) -> Tuple[str]:
         arguments = []
         offset = 0
         for _, field_type in annotation_parser(cls.__annotations__):
-            align_offset = offset % field_type.size if cls.__structalignment__ else 0
+            align_offset = offset % field_type.size if alignment else 0
             read_instruction = f'{const.bytes_var}.read({field_type.size + align_offset})'
             if align_offset > 0:
                 read_instruction += f'[{align_offset}:]'
@@ -56,11 +55,11 @@ class BaseStruct(ByteField):
         return f'return cls({",".join(arguments)})',
 
     @classmethod
-    def __rawencoder__(cls) -> Tuple[str]:
+    def __rawencoder__(cls, alignment=True) -> Tuple[str]:
         arguments = []
         offset = 0
         for property_name, field_type in annotation_parser(cls.__annotations__):
-            align_offset = offset % field_type.size if cls.__structalignment__ else 0
+            align_offset = offset % field_type.size if alignment else 0
             if align_offset > 0:
                 arguments.append(f"{const.bytes_var}.write(b'\\0' * {align_offset})")
             write_instruction = field_type.__rawencoder__().format(**{const.property_var: 'self.' + property_name})

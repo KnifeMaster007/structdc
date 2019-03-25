@@ -1,5 +1,6 @@
 from typing import Union
 
+from .const import bytes_var
 from ._metaprogramming import annotation_parser
 from .abc import ByteField
 from .import const
@@ -46,7 +47,7 @@ class BaseStruct(ByteField):
     def __rawdecoder__(cls) -> str:
         arguments = []
         offset = 0
-        for _, field_type in annotation_parser(cls.__dataclass_fields__):
+        for _, field_type in annotation_parser(cls.__annotations__):
             align_offset = offset % field_type.size if cls.__structalignment__ else 0
             read_instruction = f'{const.bytes_var}.read({field_type.size + align_offset})'
             if align_offset > 0:
@@ -59,12 +60,11 @@ class BaseStruct(ByteField):
     def __rawencoder__(cls) -> str:
         arguments = []
         offset = 0
-        for property_name, field_type in annotation_parser(cls.__dataclass_fields__):
+        for property_name, field_type in annotation_parser(cls.__annotations__):
             align_offset = offset % field_type.size if cls.__structalignment__ else 0
             if align_offset > 0:
                 arguments.append(f"{const.bytes_var}.write(b'\\0' * {align_offset})")
             write_instruction = field_type.__rawencoder__().format(**{const.property_var: 'self.' + property_name})
             arguments.append(f"{const.bytes_var}.write({write_instruction})")
             offset += field_type.size
-        arguments.append(f"print({const.bytes_var}.getvalue())")
         return "\n".join(arguments) + '\n'

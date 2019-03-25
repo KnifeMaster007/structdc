@@ -1,9 +1,8 @@
 from typing import Union
 
-from .const import bytes_var
 from ._metaprogramming import annotation_parser
 from .abc import ByteField
-from .import const
+from .. import const
 
 __all__ = ['Integer', 'Float']
 

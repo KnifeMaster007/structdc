@@ -9,8 +9,6 @@ class StructMixin(BaseStruct):
                         ' \n'.join([' ' * 4 + line for line in cls.__rawdecoder__(not packed)])
         encode_method = f"def to_bytestream(self, {bytes_var}: BytesIO):\n" + \
                         ' \n'.join([' ' * 4 + line for line in cls.__rawencoder__(not packed)])
-        print("chk", decode_method)
-        print("chk", encode_method)
         namespace = {}
         cls.__structalignment__ = not packed
         exec(decode_method, globals(), namespace)

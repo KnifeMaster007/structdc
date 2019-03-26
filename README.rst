@@ -11,8 +11,9 @@ Data class mapper for C structures
 
 Install
 -------
+.. code:: python
 
-        pip install structdc
+    pip install structdc
 
 Features
 --------

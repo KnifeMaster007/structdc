@@ -1,3 +1,4 @@
+import sys
 from enum import Enum
 
 
@@ -8,3 +9,4 @@ property_var = '__property'
 class Endianess(Enum):
     LITTLE = 'little'
     BIG = 'big'
+    PLATFORM = sys.byteorder

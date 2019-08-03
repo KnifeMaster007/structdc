@@ -1,19 +1,34 @@
 from abc import ABC, abstractmethod
-from typing import Union, Type
+from typing import Union, Type, Any, Generic, TypeVar
 
 
-class ByteField(ABC):
-    size: int = None
-    typing: Type = Union['_ByteField', bytes]
+T = TypeVar('T')
+
+
+class ByteField(ABC, Generic[T]):
+    __typing__: Type = Union['ByteField', bytes]
+
+    def __init_subclass__(cls, typing=Union['ByteField', bytes]):
+        cls.__typing__ = typing
 
     @classmethod
     @abstractmethod
-    def __rawdecoder__(cls) -> str:
+    def decode_binary(cls, source: bytes) -> T:
         pass
 
     @classmethod
     @abstractmethod
-    def __rawencoder__(cls) -> str:
+    def encode_binary(self, value: T) -> bytes:
+        pass
+
+    @classmethod
+    @abstractmethod
+    def __fieldsize__(cls) -> int:
+        pass
+
+    @classmethod
+    @abstractmethod
+    def __alignment__(cls) -> int:
         pass
 
 

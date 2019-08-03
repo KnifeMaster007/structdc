@@ -6,9 +6,9 @@ from ..const import bytes_var
 class StructMixin(BaseStruct):
     def __init_subclass__(cls, packed=False, **kwargs):
         decode_method = f"@classmethod\ndef from_bytestream(cls, {bytes_var}: BytesIO):\n" + \
-                        ' \n'.join([' ' * 4 + line for line in cls.__rawdecoder__(not packed)])
+                        ' \n'.join([' ' * 4 + line for line in cls.decode_binary(not packed)])
         encode_method = f"def to_bytestream(self, {bytes_var}: BytesIO):\n" + \
-                        ' \n'.join([' ' * 4 + line for line in cls.__rawencoder__(not packed)])
+                        ' \n'.join([' ' * 4 + line for line in cls.encode_binary(not packed)])
         namespace = {}
         cls.__structalignment__ = not packed
         exec(decode_method, globals(), namespace)

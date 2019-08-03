@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
-from typing import Union, Type, Any, Generic, TypeVar
+from typing import Union, Type, Generic, TypeVar, Sequence
+from dataclasses import Field
 
 
 T = TypeVar('T')
@@ -18,7 +19,7 @@ class ByteField(ABC, Generic[T]):
 
     @classmethod
     @abstractmethod
-    def encode_binary(self, value: T) -> bytes:
+    def encode_binary(cls, value: T) -> bytes:
         pass
 
     @classmethod
@@ -30,6 +31,22 @@ class ByteField(ABC, Generic[T]):
     @abstractmethod
     def __alignment__(cls) -> int:
         pass
+
+
+class CTypeConstraint(ABC):
+    pass
+
+
+class RequiresConstraint:
+    __required_constraints__: Sequence[CTypeConstraint]
+
+
+class ConstraintedField(Field):
+    __ctype_constraint__: CTypeConstraint
+
+    def __init__(self, ctype_constraint, default, default_factory, init, repr, hash, compare, metadata):
+        super().__init__(default, default_factory, init, repr, hash, compare, metadata)
+        self.__ctype_constraint__ = ctype_constraint
 
 
 __all__ = [ByteField]

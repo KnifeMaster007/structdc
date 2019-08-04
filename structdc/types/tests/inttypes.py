@@ -1,7 +1,7 @@
 import unittest
 
 import structdc.types.inttypes as inttypes
-from structdc.const import Endianess
+from structdc.types.const import Endianess
 from typing import Union
 
 

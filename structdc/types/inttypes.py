@@ -1,6 +1,6 @@
 from typing import Union
 
-from structdc.const import Endianess
+from structdc.types.const import Endianess
 from .abc import ByteField
 
 

@@ -2,7 +2,7 @@ from typing import Union, Tuple
 
 from ._metaprogramming import annotation_parser
 from .abc import ByteField
-from .. import const
+from structdc.types import const
 
 __all__ = ['Float']
 

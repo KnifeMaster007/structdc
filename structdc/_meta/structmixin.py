@@ -1,6 +1,6 @@
 from io import BytesIO
 from structdc.types.metatypes import BaseStruct
-from ..const import bytes_var
+from structdc.types.const import bytes_var
 
 
 class StructMixin(BaseStruct):
